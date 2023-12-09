@@ -1,0 +1,56 @@
+<!-- templates/cadastro.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Pedido</title>
+</head>
+<body>
+    <h1>Cadastro de Pedido</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="post" action="{{ url_for('cadastro') }}">
+        <label for="cnpj">CNPJ da Empresa:</label>
+        <input type="text" name="cnpj" required>
+
+        <label for="nome_empresa">Nome da Empresa:</label>
+        <input type="text" name="nome_empresa" required>
+
+        <label for="placa_caminhao">Placa do Caminhão:</label>
+        <input type="text" name="placa_caminhao" required>
+
+        <label for="nome_motorista">Nome do Motorista:</label>
+        <input type="text" name="nome_motorista" required>
+
+        <label for="cpf_motorista">CPF do Motorista:</label>
+        <input type="text" name="cpf_motorista" required>
+
+        <label for="telefone_empresa">Telefone da Empresa:</label>
+        <input type="text" name="telefone_empresa" required>
+
+        <label for="data_chegada">Data de Chegada:</label>
+        <input type="date" name="data_chegada" required>
+
+        <label for="horario_previsto">Horário Previsto:</label>
+        <input type="time" name="horario_previsto" required>
+
+        <label for="tempo_carregamento">Tempo de Carregamento (min):</label>
+        <input type="number" name="tempo_carregamento" required>
+
+        <button type="submit">Cadastrar Pedido</button>
+    </form>
+
+    <p><a href="{{ url_for('index') }}">Voltar para a Agenda</a></p>
+</body>
+</html>
