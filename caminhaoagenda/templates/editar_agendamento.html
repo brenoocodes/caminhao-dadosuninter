@@ -1,0 +1,71 @@
+<!-- templates/editar_agendamento.html -->
+
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-5">Editar Agendamento</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="post">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                {{ form.data_chegada.label(class="form-label") }}
+                {{ form.data_chegada(class="form-control") }}
+                {% for error in form.data_chegada.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.horario_chegada.label(class="form-label") }}
+                {{ form.horario_chegada(class="form-control") }}
+                {% for error in form.horario_chegada.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.tempo_estimado.label(class="form-label") }}
+                {{ form.tempo_estimado(class="form-control") }}
+                {% for error in form.tempo_estimado.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.empresa_id.label(class="form-label") }}
+                {{ form.empresa_id(class="form-control") }}
+                {% for error in form.empresa_id.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.caminhao_id.label(class="form-label") }}
+                {{ form.caminhao_id(class="form-control") }}
+                {% for error in form.caminhao_id.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.motorista_id.label(class="form-label") }}
+                {{ form.motorista_id(class="form-control") }}
+                {% for error in form.motorista_id.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Atualizar Agendamento</button>
+        </form>
+    </div>
+{% endblock %}

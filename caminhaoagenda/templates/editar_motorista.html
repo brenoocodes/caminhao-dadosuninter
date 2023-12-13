@@ -1,0 +1,47 @@
+<!-- templates/editar_motorista.html -->
+
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-5">Editar Motorista</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="post">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                {{ form.nome_completo.label(class="form-label") }}
+                {{ form.nome_completo(class="form-control") }}
+                {% for error in form.nome_completo.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.cpf.label(class="form-label") }}
+                {{ form.cpf(class="form-control") }}
+                {% for error in form.cpf.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.telefone.label(class="form-label") }}
+                {{ form.telefone(class="form-control") }}
+                {% for error in form.telefone.errors %}
+                    <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Atualizar Motorista</button>
+        </form>
+    </div>
+{% endblock %}

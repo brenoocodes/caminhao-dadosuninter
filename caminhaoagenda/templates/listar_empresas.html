@@ -1,0 +1,44 @@
+<!-- templates/listar_empresas.html -->
+
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-5">Listar Empresas</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">CNPJ</th>
+                    <th scope="col">Nome Fantasia</th>
+                    <th scope="col">Endereço</th>
+                    <th scope="col">Telefones</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for empresa in empresas %}
+                    <tr>
+                        <th scope="row">{{ empresa.id }}</th>
+                        <td>{{ empresa.cnpj }}</td>
+                        <td>{{ empresa.nome_fantasia }}</td>
+                        <td>{{ empresa.endereco }}</td>
+                        <td>{{ empresa.telefones }}</td>
+                        <td>
+                            <a href="{{ url_for('editar_empresa', empresa_id=empresa.id) }}" class="btn btn-warning btn-sm">Editar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
