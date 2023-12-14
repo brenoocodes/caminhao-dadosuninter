@@ -1,0 +1,36 @@
+/* Adicione essas alterações no seu arquivo de estilo CSS */
+
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #2C1DDB, #2518B8, #1D138F, #0C083D);
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #2C1DDB, #2518B8, #1D138F, #0C083D);
+}
+
+@media (min-width: 768px) {
+    .gradient-form {
+        height: 100vh !important;
+        margin-top: 50px; /* Ajuste conforme necessário */
+        margin-bottom: 50px; /* Ajuste conforme necessário */
+    }
+}
+
+@media (min-width: 769px) {
+    .gradient-custom-2 {
+        border-top-right-radius: .3rem;
+        border-bottom-right-radius: .3rem;
+    }
+}
+/* Adicione essas regras ao seu arquivo login.css */
+
+.card {
+    border-radius: 1.5rem; /* Ajuste conforme necessário para arredondar mais ou menos */
+    border: 2px solid; /* Ajuste conforme necessário para aumentar ou diminuir a grossura da borda */
+}
+
+
+
