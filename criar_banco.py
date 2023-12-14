@@ -1,8 +1,8 @@
 from caminhaoagenda import app, database
-from caminhaoagenda.models import Usuario, Empresa, Caminhao, Motorista, Agendamento
+from caminhaoagenda.models import Caminhao, Empresa, Motorista, Pedido, Usuario
 
-# Cria as tabelas no banco de dados
 with app.app_context():
     database.create_all()
 
 print('Banco de dados criado.')
+

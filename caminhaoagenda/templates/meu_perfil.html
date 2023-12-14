@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Meu Perfil - Sua Aplicação{% endblock %}
+
+{% block content %}
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="mb-4">Meu Perfil</h2>
+            <p><strong>Nome de Usuário:</strong> {{ current_user.nome_usuario }}</p>
+            <p><strong>Email:</strong> {{ current_user.email }}</p>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">Sair</a>
+        </div>
+    </div>
+{% endblock %}
+
