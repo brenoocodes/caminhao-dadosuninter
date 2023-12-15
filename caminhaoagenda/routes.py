@@ -1,8 +1,9 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, jsonify
 from flask_login import login_user, logout_user, current_user, login_required
 from caminhaoagenda import app, database, bcrypt
 from caminhaoagenda.models import Usuario
-from caminhaoagenda.forms import LoginForm, RegistroForm, EsqueceuSenhaForm
+from caminhaoagenda.forms import LoginForm, RegistroForm, EsqueceuSenhaForm, EditarPerfilNomeEmailForm, EditarPerfilSenhaForm
+
 
 @app.route("/", methods=['GET', 'POST'])
 def login():
@@ -20,10 +21,43 @@ def login():
 
     return render_template('login.html', form=form)
 
-@app.route("/meu_perfil")
+@app.route("/meu_perfil", methods=['GET', 'POST'])
 @login_required
 def meu_perfil():
-    return render_template('meu_perfil.html')
+    form_nome_email = EditarPerfilNomeEmailForm()
+    form_senha = EditarPerfilSenhaForm()
+
+    if form_nome_email.validate_on_submit():
+        usuario = Usuario.query.get(current_user.id)
+        usuario.nome_usuario = form_nome_email.novo_nome.data
+        usuario.email = form_nome_email.novo_email.data
+
+        try:
+            database.session.commit()
+            flash('Perfil atualizado com sucesso.', 'success')
+            return redirect(url_for('meu_perfil'))
+        except Exception as e:
+            database.session.rollback()
+            flash(f'Erro ao atualizar perfil: {str(e)}', 'danger')
+
+    if form_senha.validate_on_submit():
+        usuario = Usuario.query.get(current_user.id)
+
+        if bcrypt.check_password_hash(usuario.senha, form_senha.senha_atual.data):
+            nova_senha_hashed = bcrypt.generate_password_hash(form_senha.nova_senha.data).decode('utf-8')
+            usuario.senha = nova_senha_hashed
+
+            try:
+                database.session.commit()
+                flash('Senha atualizada com sucesso.', 'success')
+                return redirect(url_for('meu_perfil'))
+            except Exception as e:
+                database.session.rollback()
+                flash(f'Erro ao atualizar senha: {str(e)}', 'danger')
+        else:
+            flash('Senha atual incorreta. Tente novamente.', 'danger')
+
+    return render_template('meu_perfil.html', form_nome_email=form_nome_email, form_senha=form_senha)
 
 @app.route("/criar_conta", methods=['GET', 'POST'])
 def criar_conta():

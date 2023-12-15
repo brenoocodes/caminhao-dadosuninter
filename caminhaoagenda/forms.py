@@ -2,6 +2,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 from caminhaoagenda.models import Usuario
+from wtforms.fields import StringField, PasswordField
+from wtforms.validators import InputRequired, Email, Length, EqualTo
+
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -26,3 +29,14 @@ class EsqueceuSenhaForm(FlaskForm):
     nova_senha = PasswordField('Nova Senha', validators=[DataRequired()])
     confirmar_nova_senha = PasswordField('Confirmar Nova Senha', validators=[DataRequired(), EqualTo('nova_senha')])
     submit = SubmitField('Redefinir Senha')
+
+class EditarPerfilNomeEmailForm(FlaskForm):
+    novo_nome = StringField('Novo Nome', validators=[InputRequired(), Length(min=2, max=20)])
+    novo_email = StringField('Novo Email', validators=[InputRequired(), Email()])
+
+
+class EditarPerfilSenhaForm(FlaskForm):
+    senha_atual = PasswordField('Senha Atual', validators=[InputRequired()])
+    nova_senha = PasswordField('Nova Senha', validators=[InputRequired(), Length(min=6)])
+    confirmar_nova_senha = PasswordField('Confirmar Nova Senha', validators=[InputRequired(), EqualTo('nova_senha', message='As senhas devem ser iguais.')])
+
